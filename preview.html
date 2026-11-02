@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CleverPe – Premium Fintech Redesign</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23438D83'/%3E%3Cpath d='M12 20C12 15.58 15.58 12 20 12C24.42 12 28 15.58 28 20C28 24.42 24.42 28 20 28H15' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='20' cy='20' r='3' fill='%23A8C8B5'/%3E%3C/svg%3E" />
+  
+  <!-- Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN with custom config matching the prompt specifications -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: {
+              primary: '#FAFBF9',
+              secondary: '#F0F5F7',
+              card: '#FFFFFF',
+              subtle: '#F4F7F6'
+            },
+            slate: {
+              deep: '#243746',
+              muted: '#526677',
+              light: '#7F93A3',
+              faint: '#D4DEE5'
+            },
+            teal: {
+              brand: '#438D83',
+              dark: '#347068',
+              light: '#EBF4F2'
+            },
+            sage: {
+              brand: '#A8C8B5',
+              dark: '#82A590',
+              light: '#F0F6F2',
+              soft: '#D8E8DE'
+            },
+            sky: {
+              brand: '#DDEBF3',
+              dark: '#B0CFE3',
+              light: '#F4F9FC'
+            },
+            border: {
+              subtle: '#E5EBEB',
+              hover: '#CDD7D7'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'subtle': '0 1px 3px rgba(36, 55, 70, 0.04), 0 4px 12px rgba(36, 55, 70, 0.03)',
+            'card': '0 2px 8px rgba(36, 55, 70, 0.04), 0 12px 24px -4px rgba(36, 55, 70, 0.06)',
+            'float': '0 8px 30px rgba(36, 55, 70, 0.08), 0 20px 48px -12px rgba(36, 55, 70, 0.12)',
+            'modal': '0 24px 64px -16px rgba(36, 55, 70, 0.2)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(0.5deg); }
+    }
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(7px) rotate(-0.5deg); }
+    }
+    .animate-float-slow {
+      animation: floatSlow 7s ease-in-out infinite;
+    }
+    .animate-float-reverse {
+      animation: floatReverse 8s ease-in-out infinite;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #E5EBEB;
+      border-radius: 9999px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #438D83;
+      cursor: pointer;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(36, 55, 70, 0.2);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      background: #347068;
+    }
+  </style>
+</head>
+<body class="bg-bg-primary text-slate-deep antialiased selection:bg-teal-brand/15 selection:text-teal-dark overflow-x-hidden font-sans">
+
+  <!-- =========================================================================
+      SECTION 01: NAVIGATION
+     ========================================================================= -->
+  <header class="sticky top-0 z-40 bg-bg-primary/90 backdrop-blur-md border-b border-border-subtle">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 font-bold tracking-tight select-none">
+        <div class="relative w-9 h-9 rounded-xl bg-teal-brand flex items-center justify-center shadow-sm">
+          <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 8h-5a4 4 0 0 0 0 8h5" />
+            <circle cx="10" cy="12" r="1.75" fill="#A8C8B5" stroke="none" />
+            <path d="M14 12h4" />
+          </svg>
+          <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-sage-brand ring-2 ring-white"></span>
+        </div>
+        <div class="flex items-baseline">
+          <span class="text-[22px] font-extrabold tracking-tight text-slate-deep">Clever</span>
+          <span class="text-[22px] font-extrabold tracking-tight text-teal-brand">Pe</span>
+        </div>
+      </a>
+
+      <!-- Middle Links -->
+      <nav class="hidden md:flex items-center gap-8 text-[15px] font-medium text-slate-muted">
+        <a href="#" class="text-teal-brand font-semibold">Home</a>
+        <a href="#solutions" class="hover:text-slate-deep transition-colors">Solutions</a>
+        <a href="#how-it-works" class="hover:text-slate-deep transition-colors">About Us</a>
+        <a href="#merchants" class="hover:text-slate-deep transition-colors">For Merchants</a>
+        <a href="#calculator" class="hover:text-slate-deep transition-colors">EMI Calculator</a>
+        <a href="#faq" class="hover:text-slate-deep transition-colors">Contact</a>
+      </nav>
+
+      <!-- Right CTAs -->
+      <div class="hidden md:flex items-center gap-4">
+        <button onclick="openModal('merchant-modal')" class="text-[14px] font-semibold text-slate-muted hover:text-slate-deep px-3 py-2 transition-colors">
+          Partner Login
+        </button>
+        <button onclick="openModal('apply-modal')" class="inline-flex items-center justify-center gap-2 bg-teal-brand hover:bg-teal-dark text-white text-[14px] font-semibold px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all group">
+          <span>Get Started</span>
+          <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-xl text-slate-deep hover:bg-bg-secondary" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-border-subtle bg-bg-primary px-6 py-5 shadow-card">
+      <nav class="flex flex-col gap-3.5 text-base font-medium text-slate-muted">
+        <a href="#" onclick="toggleMobileMenu()" class="text-teal-brand font-semibold">Home</a>
+        <a href="#solutions" onclick="toggleMobileMenu()" class="hover:text-slate-deep">Financing Solutions</a>
+        <a href="#how-it-works" onclick="toggleMobileMenu()" class="hover:text-slate-deep">How It Works</a>
+        <a href="#healthcare" onclick="toggleMobileMenu()" class="hover:text-slate-deep">Healthcare Financing</a>
+        <a href="#ev" onclick="toggleMobileMenu()" class="hover:text-slate-deep">Electric Mobility</a>
+        <a href="#merchants" onclick="toggleMobileMenu()" class="hover:text-slate-deep">For Merchants</a>
+        <a href="#calculator" onclick="toggleMobileMenu()" class="hover:text-slate-deep">EMI Calculator</a>
+        <a href="#faq" onclick="toggleMobileMenu()" class="hover:text-slate-deep">FAQs</a>
+      </nav>
+      <div class="mt-5 pt-5 border-t border-border-subtle flex flex-col gap-2.5">
+        <button onclick="toggleMobileMenu(); openModal('merchant-modal');" class="w-full text-center py-2.5 font-semibold text-slate-deep text-sm rounded-xl border border-border-subtle">
+          Partner Login
+        </button>
+        <button onclick="toggleMobileMenu(); openModal('apply-modal');" class="w-full py-3 bg-teal-brand text-white font-semibold text-sm rounded-full shadow-sm text-center">
+          Get Started with CleverPe
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+      SECTION 02: HERO SECTION (MOST IMPORTANT)
+      Editorial style inspired by Vella Bank with layered floating UI cards
+     ========================================================================= -->
+  <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden bg-bg-primary">
+    <!-- Ambient Blur Gradients -->
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-sky-brand/30 via-sage-soft/20 to-transparent rounded-full blur-3xl -z-10 pointer-events-none transform translate-x-1/3 -translate-y-1/4"></div>
+    <div class="absolute bottom-0 left-10 w-[450px] h-[450px] bg-gradient-to-tr from-teal-light via-sage-light/40 to-transparent rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Editorial Pitch -->
+        <div class="lg:col-span-7 flex flex-col items-start pr-0 lg:pr-4">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-bg-secondary border border-border-subtle text-xs font-semibold text-slate-deep mb-6">
+            <span class="w-2 h-2 rounded-full bg-teal-brand animate-ping"></span>
+            <span>Next-Generation Affordability • RBI Partnered NBFCs</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[66px] leading-[1.08] font-extrabold tracking-[-0.035em] text-slate-deep mb-6">
+            Make life affordable. <br />
+            <span class="text-teal-brand font-extrabold">Pay the clever way.</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-slate-muted leading-relaxed font-normal max-w-xl mb-9">
+            Discover smarter financing solutions for everyday purchases, healthcare, electric mobility and more. Flexible payment options designed around your needs.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10">
+            <a href="#solutions" class="inline-flex items-center justify-center gap-2.5 bg-teal-brand hover:bg-teal-dark text-white text-[15px] font-semibold px-7 py-4 rounded-full shadow-subtle hover:shadow-card transition-all text-center">
+              <span>Explore Solutions</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <button onclick="openModal('merchant-modal')" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-bg-secondary text-slate-deep text-[15px] font-semibold px-7 py-4 rounded-full border border-border-subtle transition-all text-center">
+              <svg class="w-4 h-4 text-teal-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7v14M21 7v14M6 11h4M6 15h4M14 11h4M14 15h4M9 3l3-2 3 2v4H9V3z"/></svg>
+              <span>Partner With Us</span>
+            </button>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="pt-6 border-t border-border-subtle/80 grid grid-cols-3 gap-4 sm:gap-8 w-full max-w-lg">
+            <div class="flex flex-col">
+              <span class="text-xs font-medium text-slate-light uppercase tracking-wider">Credit Access</span>
+              <span class="text-sm sm:text-base font-bold text-slate-deep flex items-center gap-1 mt-0.5">
+                <svg class="w-4 h-4 text-teal-brand inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                100% Digital
+              </span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xs font-medium text-slate-light uppercase tracking-wider">Interest Rate</span>
+              <span class="text-sm sm:text-base font-bold text-slate-deep flex items-center gap-1 mt-0.5">
+                <svg class="w-4 h-4 text-teal-brand inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                0% No Cost EMI
+              </span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xs font-medium text-slate-light uppercase tracking-wider">Lending Partners</span>
+              <span class="text-sm sm:text-base font-bold text-slate-deep flex items-center gap-1 mt-0.5">
+                <svg class="w-4 h-4 text-teal-brand inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                RBI-Registered
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Layered Editorial Composition -->
+        <div class="lg:col-span-5 relative flex justify-center items-center">
+          <div class="relative w-full max-w-[440px] sm:max-w-[480px]">
+            <div class="absolute -inset-3 bg-gradient-to-tr from-sage-brand/20 via-sky-brand/40 to-teal-light rounded-[36px] -rotate-2 transform filter blur-sm"></div>
+            
+            <div class="relative rounded-[28px] overflow-hidden bg-white border border-border-subtle shadow-card">
+              <!-- Lifestyle Photograph -->
+              <div class="relative h-[480px] sm:h-[520px] w-full overflow-hidden bg-bg-secondary">
+                <img 
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1000&q=85" 
+                  alt="Modern Indian professional using CleverPe smartphone payment financing"
+                  class="w-full h-full object-cover object-top filter contrast-[1.03] transition-transform duration-700 hover:scale-105"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-deep/50 via-slate-deep/10 to-transparent"></div>
+              </div>
+
+              <!-- Visual Caption Pill -->
+              <div class="absolute bottom-5 left-5 right-5 flex items-center justify-between text-white text-xs bg-slate-deep/75 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10">
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></div>
+                  <span class="font-medium tracking-wide">Instant Checkout Active</span>
+                </div>
+                <span class="font-semibold text-white/90">Scan • Approve • Split</span>
+              </div>
+            </div>
+
+            <!-- Floating Card 1: EMI Payment Preview -->
+            <div class="absolute -top-6 -left-6 sm:-left-10 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-float border border-border-subtle max-w-[240px] sm:max-w-[270px] animate-float-slow z-20">
+              <div class="flex items-center justify-between gap-3 mb-2.5">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-lg bg-teal-light flex items-center justify-center text-teal-brand">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1zM14 8H8M16 12H8M12 16H8"/></svg>
+                  </div>
+                  <span class="text-xs font-bold text-slate-deep">Monthly EMI</span>
+                </div>
+                <span class="text-[10px] font-semibold text-teal-dark bg-teal-light px-2 py-0.5 rounded-full border border-teal-brand/20">
+                  No Cost
+                </span>
+              </div>
+              <div class="flex items-baseline gap-1 mb-2">
+                <span class="text-2xl font-extrabold text-slate-deep tracking-tight">₹3,499</span>
+                <span class="text-xs text-slate-muted">/ month</span>
+              </div>
+              <div class="w-full bg-bg-secondary h-1.5 rounded-full overflow-hidden mb-2">
+                <div class="bg-teal-brand h-full rounded-full w-2/3"></div>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-slate-muted">
+                <span>Instalment 4 of 6</span>
+                <span class="font-semibold text-emerald-600">On Time</span>
+              </div>
+            </div>
+
+            <!-- Floating Card 2: Approved Credit Limit Pill -->
+            <div class="absolute top-1/2 -right-5 sm:-right-8 transform -translate-y-1/2 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 shadow-float border border-border-subtle max-w-[230px] animate-float-reverse z-20">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-sage-light flex items-center justify-center text-teal-brand">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"/></svg>
+                </div>
+                <div>
+                  <div class="text-[11px] font-medium text-slate-muted">Approved Credit Limit</div>
+                  <div class="text-base font-extrabold text-slate-deep">₹1,50,000</div>
+                  <div class="text-[10px] font-semibold text-teal-brand">★ Ready to Use</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Card 3: EV Mobility Badge -->
+            <div class="absolute -bottom-5 -left-4 sm:-left-6 bg-white/95 backdrop-blur-md rounded-2xl py-2.5 px-4 shadow-float border border-border-subtle flex items-center gap-3 z-20">
+              <div class="w-8 h-8 rounded-lg bg-sky-brand flex items-center justify-center text-teal-brand">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-slate-deep">EV Two-Wheeler EMI</div>
+                <div class="text-[11px] text-slate-muted">Approved in 15 mins</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+      SECTION 03: TRUST AND BENEFITS
+      "Finance that fits your life" - 4 concise benefits with outline icons
+     ========================================================================= -->
+  <section class="py-20 bg-bg-secondary border-y border-border-subtle">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-semibold uppercase tracking-widest text-teal-brand">Designed For Clarity</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-deep tracking-tight mt-2 mb-4">
+          Finance that fits your life.
+        </h2>
+        <p class="text-slate-muted text-base sm:text-lg">
+          Transparent, modern affordability engineered without hidden fees or cumbersome paperwork.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Benefit 1 -->
+        <div class="bg-white rounded-2xl p-7 border border-border-subtle shadow-subtle hover:shadow-card hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-teal-light text-teal-brand flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-deep mb-2">Simple digital experience</h3>
+          <p class="text-sm text-slate-muted leading-relaxed">
+            Seamless 100% paperless onboarding with quick identity verification right from your mobile device.
+          </p>
+        </div>
+
+        <!-- Benefit 2 -->
+        <div class="bg-white rounded-2xl p-7 border border-border-subtle shadow-subtle hover:shadow-card hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-sage-light text-teal-brand flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="1" x2="7" y1="14" y2="14"/><line x1="9" x2="15" y1="8" y2="8"/><line x1="17" x2="23" y1="16" y2="16"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-deep mb-2">Flexible payment options</h3>
+          <p class="text-sm text-slate-muted leading-relaxed">
+            Choose repayment tenures from 3 to 24 months structured comfortably around your personal cash flow.
+          </p>
+        </div>
+
+        <!-- Benefit 3 -->
+        <div class="bg-white rounded-2xl p-7 border border-border-subtle shadow-subtle hover:shadow-card hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-sky-light text-teal-brand flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-deep mb-2">Convenient financing journeys</h3>
+          <p class="text-sm text-slate-muted leading-relaxed">
+            Direct integration at partner hospital desks, EV dealerships, and leading retail checkouts.
+          </p>
+        </div>
+
+        <!-- Benefit 4 -->
+        <div class="bg-white rounded-2xl p-7 border border-border-subtle shadow-subtle hover:shadow-card hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-bg-secondary text-teal-brand flex items-center justify-center mb-6">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-slate-deep mb-2">Transparent information</h3>
+          <p class="text-sm text-slate-muted leading-relaxed">
+            Upfront breakdown of all terms, zero hidden penalties, and clear repayment schedules at every milestone.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+      SECTION 04: FINANCING SOLUTIONS
+      "One platform. Multiple possibilities." - 5 service cards
+     ========================================================================= -->
+  <section id="solutions" class="py-24 bg-bg-primary">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-teal-brand">Our Offerings</span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-deep tracking-tight mt-2">
+            One platform. Multiple possibilities.
+          </h2>
+        </div>
+        <p class="text-slate-muted max-w-md text-base">
+          Tailored financing designed to empower your major life milestones and everyday convenience with ease.
+        </p>
+      </div>
+
+      <!-- 5 Service Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- 1. BNPL -->
+        <div class="bg-white rounded-2xl p-8 border border-border-subtle shadow-subtle hover:shadow-card hover:-translate-y-1 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-teal-light text-teal-brand">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+              </div>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-bg-secondary text-slate-deep border border-border-subtle">
+                Zero Card Required
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-deep mb-2 group-hover:text-teal-brand transition-colors">Buy Now Pay Later</h3>
+            <p class="text-sm font-medium text-teal-dark mb-3">Instant micro-credit for everyday essentials</p>
+            <p class="text-sm text-slate-muted leading-relaxed mb-6">
+              Split everyday shopping, online checkouts, and tech accessories into easy bi-weekly or monthly payments with seamless 1-click approvals.
+            </p>
+          </div>
+          <button onclick="openModal('apply-modal')" class="w-full inline-flex items-center justify-center gap-2 bg-bg-secondary hover:bg-teal-brand hover:text-white text-slate-deep font-semibold text-sm py-3 rounded-xl transition-all">
+            <span>Learn More & Apply</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <!-- 2. No Cost EMI -->
+        <div class="bg-white rounded-2xl p-8 border border-border-subtle shadow-subtle hover:shadow-card hover:-translate-y-1 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-sage-light text-teal-brand">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="19" x2="5" y1="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+              </div>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-bg-secondary text-slate-deep border border-border-subtle">
+                0% Interest Guaranteed
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-deep mb-2 group-hover:text-teal-brand transition-colors">No Cost EMI</h3>
+            <p class="text-sm font-medium text-teal-dark mb-3">Zero interest on premium lifestyle upgrades</p>
+            <p class="text-sm text-slate-muted leading-relaxed mb-6">
+              Upgrade your laptops, smartphones, home appliances, and furniture without paying a single rupee extra in interest or upfront charges.
+            </p>
+          </div>
+          <button onclick="openModal('apply-modal')" class="w-full inline-flex items-center justify-center gap-2 bg-bg-secondary hover:bg-teal-brand hover:text-white text-slate-deep font-semibold text-sm py-3 rounded-xl transition-all">
+            <span>Learn More & Apply</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <!-- 3. EV Financing -->
+        <div class="bg-white rounded-2xl p-8 border border-border-subtle shadow-subtle hover:shadow-card hover:-translate-y-1 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-sky-light text-teal-brand">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>
+              </div>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-bg-secondary text-slate-deep border border-border-subtle">
+                Up to ₹2,00,000
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-deep mb-2 group-hover:text-teal-brand transition-colors">Electric Vehicle Financing</h3>
+            <p class="text-sm font-medium text-teal-dark mb-3">Drive green with tailored mobility loans</p>
+            <p class="text-sm text-slate-muted leading-relaxed mb-6">
+              Accelerate your transition to clean energy with customized, paperless loans for electric two-wheelers up to ₹2,00,000 at partner showrooms.
+            </p>
+          </div>
+          <button onclick="openModal('apply-modal')" class="w-full inline-flex items-center justify-center gap-2 bg-bg-secondary hover:bg-teal-brand hover:text-white text-slate-deep font-semibold text-sm py-3 rounded-xl transition-all">
+            <span>Learn More & Apply</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <!-- 4. Healthcare Financing -->
+        <div class="bg-white rounded-2xl p-8 border border-border-subtle shadow-subtle hover:shadow-card hover:-translate-y-1 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-sage-light text-teal-brand">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+              </div>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-bg-secondary text-slate-deep border border-border-subtle">
+                Desk Clearance
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-deep mb-2 group-hover:text-teal-brand transition-colors">Healthcare Financing</h3>
+            <p class="text-sm font-medium text-teal-dark mb-3">Compassionate medical credit when it matters</p>
+            <p class="text-sm text-slate-muted leading-relaxed mb-6">
+              Ensure medical procedures, elective surgeries, IVF, ophthalmology, and dental care proceed immediately without financial roadblocks.
+            </p>
+          </div>
+          <button onclick="openModal('apply-modal')" class="w-full inline-flex items-center justify-center gap-2 bg-bg-secondary hover:bg-teal-brand hover:text-white text-slate-deep font-semibold text-sm py-3 rounded-xl transition-all">
+            <span>Learn More & Apply</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <!-- 5. Insurance Premium Financing -->
+        <div class="bg-white rounded-2xl p-8 border border-border-subtle shadow-subtle hover:shadow-card hover:-translate-y-1 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-teal-light text-teal-brand">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"/></svg>
+              </div>
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-bg-secondary text-slate-deep border border-border-subtle">
+                Keep Protection Active
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-deep mb-2 group-hover:text-teal-brand transition-colors">Insurance Premium Financing</h3>
+            <p class="text-sm font-medium text-teal-dark mb-3">Protect your future without draining savings</p>
+            <p class="text-sm text-slate-muted leading-relaxed mb-6">
+              Convert annual lump-sum health, motor, and life insurance premiums into manageable monthly instalments with automated digital debits.
+            </p>
+          </div>
+          <button onclick="openModal('apply-modal')" class="w-full inline-flex items-center justify-center gap-2 bg-bg-secondary hover:bg-teal-brand hover:text-white text-slate-deep font-semibold text-sm py-3 rounded-xl transition-all">
+            <span>Learn More & Apply</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+      SECTION 05: HOW CLEVERPE WORKS
+      "A simpler way to move forward" - 3 steps
+     ========================================================================= -->
+  <section id="how-it-works" class="py-24 bg-bg-secondary border-y border-border-subtle relative overflow-hidden">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-20">
+        <span class="text-xs font-semibold uppercase tracking-widest text-teal-brand">Step-by-Step Clarity</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-deep tracking-tight mt-2 mb-4">
+          A simpler way to move forward.
+        </h2>
+        <p class="text-slate-muted text-base sm:text-lg">
+          Experience completely frictionless digital financing in three seamless steps.
+        </p>
+      </div>
+
+      <div class="relative">
+        <div class="hidden lg:block absolute top-1/2 left-24 right-24 h-[2px] bg-gradient-to-r from-teal-brand/20 via-teal-brand/40 to-teal-brand/20 -translate-y-8 z-0"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+          
+          <!-- Step 01 -->
+          <div class="bg-white rounded-2xl p-8 border border-border-subtle shadow-subtle flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-4xl font-extrabold text-teal-brand font-serif">01</span>
+                <div class="w-10 h-10 rounded-full bg-teal-light flex items-center justify-center text-teal-brand font-bold text-sm">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="1" x2="7" y1="14" y2="14"/><line x1="9" x2="15" y1="8" y2="8"/><line x1="17" x2="23" y1="16" y2="16"/></svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold text-slate-deep mb-3">Choose a financing solution</h3>
+              <p class="text-sm text-slate-muted leading-relaxed">
+                Select the purchase category, desired tenure, and repayment rhythm that best aligns with your financial budget.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-border-subtle text-xs font-semibold text-teal-brand">
+              Instant Tenure Selection
+            </div>
+          </div>
+
+          <!-- Step 02 -->
+          <div class="bg-white rounded-2xl p-8 border border-border-subtle shadow-subtle flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-4xl font-extrabold text-teal-brand font-serif">02</span>
+                <div class="w-10 h-10 rounded-full bg-sage-light flex items-center justify-center text-teal-brand font-bold text-sm">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold text-slate-deep mb-3">Complete the application process</h3>
+              <p class="text-sm text-slate-muted leading-relaxed">
+                Enter your mobile number, verify your KYC digitally in seconds, and review the transparent loan conditions without paperwork.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-border-subtle text-xs font-semibold text-teal-brand">
+              2-Minute Digital KYC
+            </div>
+          </div>
+
+          <!-- Step 03 -->
+          <div class="bg-white rounded-2xl p-8 border border-border-subtle shadow-subtle flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-4xl font-extrabold text-teal-brand font-serif">03</span>
+                <div class="w-10 h-10 rounded-full bg-sky-light flex items-center justify-center text-teal-brand font-bold text-sm">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold text-slate-deep mb-3">Proceed based on eligibility & approval</h3>
+              <p class="text-sm text-slate-muted leading-relaxed">
+                Upon approval by our RBI-registered NBFC partner, complete checkout immediately online or at partner retail desks.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-border-subtle text-xs font-semibold text-teal-brand">
+              Immediate Disbursement
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+      SECTION 06: FEATURED HEALTHCARE FINANCING
+      Editorial split section: "Your health comes first."
+     ========================================================================= -->
+  <section id="healthcare" class="py-24 bg-bg-primary overflow-hidden">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-sage-light/60 rounded-[32px] border border-sage-soft p-8 sm:p-12 lg:p-16 relative overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left Editorial Copy -->
+          <div class="lg:col-span-7 flex flex-col items-start">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-border-subtle text-xs font-semibold text-teal-dark mb-6">
+              <svg class="w-4 h-4 text-teal-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+              <span>Compassionate Medical Affordability</span>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-deep tracking-tight mb-6">
+              Your health comes first.
+            </h2>
+
+            <p class="text-slate-muted text-base sm:text-lg leading-relaxed mb-8">
+              Important medical procedures and elective healthcare treatments shouldn't be delayed by immediate financial constraints. CleverPe makes eligible healthcare expenses easier to manage through flexible financing options directly at hospital and clinic billing desks.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-8">
+              <div class="flex items-start gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-border-subtle">
+                <svg class="w-5 h-5 text-teal-brand shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                <div>
+                  <div class="text-sm font-bold text-slate-deep">Desk-Side Approvals</div>
+                  <div class="text-xs text-slate-muted mt-0.5">Quick settlement during admission or discharge.</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 bg-white/80 backdrop-blur-sm p-4 rounded-xl border border-border-subtle">
+                <svg class="w-5 h-5 text-teal-brand shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                <div>
+                  <div class="text-sm font-bold text-slate-deep">Wide Medical Scope</div>
+                  <div class="text-xs text-slate-muted mt-0.5">Dental, fertility, eye surgery & elective care.</div>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="openModal('apply-modal')" class="inline-flex items-center gap-2 bg-teal-brand hover:bg-teal-dark text-white text-[15px] font-semibold px-7 py-3.5 rounded-full shadow-subtle hover:shadow transition-all">
+              <span>Explore Healthcare Financing</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <!-- Right Visual Image -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative rounded-2xl overflow-hidden shadow-card border border-white">
+              <img 
+                src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=900&q=85" 
+                alt="Authentic healthcare consultation in modern medical facility"
+                class="w-full h-[400px] object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-deep/50 via-transparent to-transparent"></div>
+              
+              <div class="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-md p-3.5 rounded-xl border border-border-subtle flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-semibold text-slate-muted">Average Approval Time</div>
+                  <div class="text-base font-extrabold text-teal-brand">Under 15 Minutes</div>
+                </div>
+                <span class="text-[11px] font-semibold px-2 py-1 rounded bg-teal-light text-teal-dark">
+                  Zero Stress
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+      SECTION 07: ELECTRIC VEHICLE FINANCING
+      "Move towards a smarter tomorrow." - EV feature section
+     ========================================================================= -->
+  <section id="ev" class="py-24 bg-bg-secondary border-t border-border-subtle overflow-hidden">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Visual -->
+        <div class="lg:col-span-5 order-2 lg:order-1 relative">
+          <div class="relative rounded-2xl overflow-hidden shadow-card border border-white">
+            <img 
+              src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=85" 
+              alt="Modern electric two-wheeler aspirational mobility"
+              class="w-full h-[420px] object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-deep/60 via-transparent to-transparent"></div>
+
+            <div class="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-md p-4 rounded-xl border border-border-subtle">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-deep">EV Two-Wheeler Sanction</span>
+                <span class="text-xs font-bold text-teal-brand">Instant POS Voucher</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-2xl font-extrabold text-slate-deep">₹2,00,000</span>
+                <span class="text-xs text-slate-muted">Max Limit</span>
+              </div>
+              <div class="mt-2 flex items-center justify-between text-[11px] text-slate-muted">
+                <span>Down payment from ₹2,999</span>
+                <span class="text-teal-dark font-medium">100% Paperless</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Content -->
+        <div class="lg:col-span-7 order-1 lg:order-2 flex flex-col items-start">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-border-subtle text-xs font-semibold text-teal-brand mb-6">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>
+            <span>Green Mobility Revolution</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-deep tracking-tight mb-6">
+            Move towards a smarter tomorrow.
+          </h2>
+
+          <p class="text-slate-muted text-base sm:text-lg leading-relaxed mb-8">
+            Switching to eco-friendly electric transportation should be seamless. CleverPe partners with leading electric two-wheeler manufacturers and authorized dealerships across India to provide quick, low down-payment financing options right at the showroom floor.
+          </p>
+
+          <div class="space-y-3.5 w-full mb-9">
+            <div class="flex items-center gap-3">
+              <div class="w-5 h-5 rounded-full bg-teal-light text-teal-brand flex items-center justify-center shrink-0">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="text-sm font-medium text-slate-deep">Financing tailored for electric scooters and smart commuter bikes</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-5 h-5 rounded-full bg-teal-light text-teal-brand flex items-center justify-center shrink-0">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="text-sm font-medium text-slate-deep">Custom tenures from 12 to 24 months to keep monthly EMIs comfortable</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-5 h-5 rounded-full bg-teal-light text-teal-brand flex items-center justify-center shrink-0">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="text-sm font-medium text-slate-deep">On-the-spot digital loan sanctions in under 15 minutes</span>
+            </div>
+          </div>
+
+          <button onclick="openModal('apply-modal')" class="inline-flex items-center gap-2 bg-teal-brand hover:bg-teal-dark text-white text-[15px] font-semibold px-7 py-3.5 rounded-full shadow-subtle hover:shadow transition-all">
+            <span>Explore EV Financing</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+      SECTION 08: MERCHANT PARTNERSHIP
+      "Better payment experiences. Stronger businesses."
+     ========================================================================= -->
+  <section id="merchants" class="py-24 bg-bg-primary border-t border-border-subtle">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7 flex flex-col items-start">
+          <span class="text-xs font-semibold uppercase tracking-widest text-teal-brand">Enterprise & Retail Solutions</span>
+          
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-deep tracking-tight mt-2 mb-6">
+            Better payment experiences. <br />
+            <span class="text-teal-brand">Stronger businesses.</span>
+          </h2>
+
+          <p class="text-slate-muted text-base sm:text-lg leading-relaxed mb-8">
+            CleverPe equips merchants, retail chains, and digital brands with customer financing solutions that drive higher order values and significantly reduce checkout drop-offs.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 w-full mb-10">
+            <div class="bg-bg-secondary p-5 rounded-2xl border border-border-subtle">
+              <div class="text-2xl font-extrabold text-teal-brand mb-1">Up to +35%</div>
+              <div class="text-xs font-bold text-slate-deep mb-1">Higher Cart Conversion</div>
+              <div class="text-xs text-slate-muted">Customers buy more when payments are split into EMIs.</div>
+            </div>
+            <div class="bg-bg-secondary p-5 rounded-2xl border border-border-subtle">
+              <div class="text-2xl font-extrabold text-teal-brand mb-1">T+1</div>
+              <div class="text-xs font-bold text-slate-deep mb-1">Upfront Settlement</div>
+              <div class="text-xs text-slate-muted">Next-business-day payout directly to your bank account.</div>
+            </div>
+            <div class="bg-bg-secondary p-5 rounded-2xl border border-border-subtle">
+              <div class="text-2xl font-extrabold text-teal-brand mb-1">0%</div>
+              <div class="text-xs font-bold text-slate-deep mb-1">Default Credit Risk</div>
+              <div class="text-xs text-slate-muted">CleverPe & NBFC partners shoulder all recovery risk.</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <button onclick="openModal('merchant-modal')" class="inline-flex items-center justify-center gap-2 bg-teal-brand hover:bg-teal-dark text-white text-[15px] font-semibold px-7 py-3.5 rounded-full shadow-subtle hover:shadow transition-all">
+              <span>Become a Partner</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <a href="#faq" class="inline-flex items-center justify-center gap-2 bg-white text-slate-deep text-[15px] font-semibold px-7 py-3.5 rounded-full border border-border-subtle hover:bg-bg-secondary transition-all">
+              <span>View Merchant FAQs</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 relative">
+          <div class="relative rounded-2xl overflow-hidden shadow-card border border-border-subtle bg-white">
+            <img 
+              src="https://images.unsplash.com/photo-1556742049-0a67e5572240?auto=format&fit=crop&w=900&q=85" 
+              alt="Modern retail store merchant checkout terminal"
+              class="w-full h-[400px] object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-deep/70 via-slate-deep/20 to-transparent"></div>
+
+            <div class="absolute bottom-5 left-5 right-5 bg-white p-4 rounded-xl shadow-float border border-border-subtle flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-teal-light flex items-center justify-center text-teal-brand">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-deep">CleverPe Smart POS & QR</div>
+                  <div class="text-[11px] text-slate-muted">Instant customer EMI scan</div>
+                </div>
+              </div>
+              <span class="text-[11px] font-semibold text-teal-brand bg-teal-light px-2.5 py-1 rounded-full">
+                Plug & Play
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+      SECTION 09: EMI CALCULATOR PREVIEW
+      Live interactive EMI calculator
+     ========================================================================= -->
+  <section id="calculator" class="py-24 bg-bg-secondary border-t border-border-subtle">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-semibold uppercase tracking-widest text-teal-brand">Interactive Preview</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-deep tracking-tight mt-2 mb-4">
+          Calculate your estimated monthly instalment.
+        </h2>
+        <p class="text-slate-muted text-base sm:text-lg">
+          Explore how manageable everyday purchases and major expenses become with CleverPe.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-border-subtle shadow-card">
+        
+        <!-- Mode Toggle -->
+        <div class="flex items-center justify-center mb-10">
+          <div class="bg-bg-secondary p-1 rounded-full border border-border-subtle flex items-center">
+            <button id="btn-nocost" onclick="setMode(true)" class="px-5 py-2 text-xs sm:text-sm font-bold rounded-full bg-teal-brand text-white shadow-sm transition-all">
+              0% No Cost EMI Plan
+            </button>
+            <button id="btn-standard" onclick="setMode(false)" class="px-5 py-2 text-xs sm:text-sm font-bold rounded-full text-slate-muted hover:text-slate-deep transition-all">
+              Standard Flexible Credit
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <!-- Controls -->
+          <div class="lg:col-span-7 space-y-8">
+            
+            <!-- Amount Slider -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <label class="text-sm font-bold text-slate-deep">Purchase Amount</label>
+                <span id="amount-val" class="text-xl font-extrabold text-teal-brand">₹60,000</span>
+              </div>
+              <input 
+                id="amount-slider"
+                type="range" 
+                min="5000" 
+                max="200000" 
+                step="2500" 
+                value="60000"
+                oninput="updateCalc()"
+                class="w-full"
+              />
+              <div class="flex justify-between text-xs text-slate-muted mt-2">
+                <span>₹5,000</span>
+                <span>₹1,00,000</span>
+                <span>₹2,00,000</span>
+              </div>
+            </div>
+
+            <!-- Tenure Selector -->
+            <div>
+              <label class="block text-sm font-bold text-slate-deep mb-3">
+                Select Repayment Tenure
+              </label>
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="tenure-buttons">
+                <button onclick="setTenure(3)" class="tenure-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all border bg-bg-primary text-slate-deep border-border-subtle" data-tenure="3">3 Mo</button>
+                <button onclick="setTenure(6)" class="tenure-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all border bg-teal-brand text-white border-teal-brand shadow-sm" data-tenure="6">6 Mo</button>
+                <button onclick="setTenure(9)" class="tenure-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all border bg-bg-primary text-slate-deep border-border-subtle" data-tenure="9">9 Mo</button>
+                <button onclick="setTenure(12)" class="tenure-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all border bg-bg-primary text-slate-deep border-border-subtle" data-tenure="12">12 Mo</button>
+                <button onclick="setTenure(18)" class="tenure-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all border bg-bg-primary text-slate-deep border-border-subtle" data-tenure="18">18 Mo</button>
+                <button onclick="setTenure(24)" class="tenure-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all border bg-bg-primary text-slate-deep border-border-subtle" data-tenure="24">24 Mo</button>
+              </div>
+            </div>
+
+            <!-- Down Payment -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <label class="text-sm font-bold text-slate-deep">Optional Down Payment</label>
+                <span id="downpayment-val" class="text-base font-bold text-slate-deep">₹0</span>
+              </div>
+              <input 
+                id="downpayment-slider"
+                type="range" 
+                min="0" 
+                max="24000" 
+                step="1000" 
+                value="0"
+                oninput="updateCalc()"
+                class="w-full"
+              />
+              <div class="flex justify-between text-xs text-slate-muted mt-2">
+                <span>₹0 (Zero Down Payment)</span>
+                <span>Max 40%</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Summary Card -->
+          <div class="lg:col-span-5 bg-bg-secondary rounded-2xl p-6 sm:p-7 border border-border-subtle flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-slate-muted">Estimated Instalment</span>
+              
+              <div class="mt-2 mb-4 flex items-baseline gap-1">
+                <span id="emi-result" class="text-3xl sm:text-4xl font-extrabold text-slate-deep tracking-tight">
+                  ₹10,000
+                </span>
+                <span class="text-xs sm:text-sm text-slate-muted font-medium">/ month</span>
+              </div>
+
+              <div id="badge-nocost" class="inline-flex items-center gap-1.5 bg-teal-light text-teal-dark px-2.5 py-1 rounded-full text-xs font-semibold mb-6">
+                <span>★ Zero Additional Interest</span>
+              </div>
+
+              <div class="space-y-3 pt-4 border-t border-border-subtle text-xs sm:text-sm">
+                <div class="flex justify-between text-slate-muted">
+                  <span>Principal Financed</span>
+                  <span id="principal-val" class="font-semibold text-slate-deep">₹60,000</span>
+                </div>
+                <div class="flex justify-between text-slate-muted">
+                  <span>Interest Rate</span>
+                  <span id="interest-rate-val" class="font-semibold text-teal-brand">0% (No Cost)</span>
+                </div>
+                <div class="flex justify-between text-slate-muted">
+                  <span>Down Payment</span>
+                  <span id="summary-downpayment" class="font-semibold text-slate-deep">₹0</span>
+                </div>
+                <div class="flex justify-between pt-3 border-t border-border-subtle text-sm font-bold text-slate-deep">
+                  <span>Total Amount Payable</span>
+                  <span id="total-payable-val">₹60,000</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8">
+              <button onclick="openModal('apply-modal')" class="w-full bg-teal-brand hover:bg-teal-dark text-white font-semibold py-3.5 rounded-xl shadow-sm text-sm transition-all">
+                Apply for Pre-Approved Limit
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-border-subtle flex items-start gap-2.5 text-[11px] text-slate-muted leading-relaxed">
+          <svg class="w-4 h-4 text-slate-light shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>
+            <strong>Representative illustration only:</strong> Actual monthly instalments, processing fees, credit limits, and applicable interest rates depend on the applicant’s underwriting assessment, credit score, partner merchant promotions, and loan terms approved by RBI-registered NBFC lending partners.
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+      SECTION 10: FAQS
+      Expandable FAQ accordion
+     ========================================================================= -->
+  <section id="faq" class="py-24 bg-bg-primary">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-semibold uppercase tracking-widest text-teal-brand">Transparent Answers</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-deep tracking-tight mt-2 mb-4">
+          Frequently asked questions.
+        </h2>
+        <p class="text-slate-muted text-base sm:text-lg">
+          Everything you need to know about CleverPe, our financing solutions, and partnerships.
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto space-y-4">
+        
+        <!-- FAQ 1 -->
+        <div class="bg-white rounded-2xl border border-border-subtle overflow-hidden">
+          <button onclick="toggleFaq(1)" class="w-full text-left px-6 py-5 flex items-center justify-between gap-4 font-bold text-slate-deep hover:text-teal-brand transition-colors">
+            <span class="text-base sm:text-lg">What is CleverPe?</span>
+            <div id="faq-icon-1" class="w-8 h-8 rounded-full bg-teal-light text-teal-brand flex items-center justify-center shrink-0 transition-transform rotate-180">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div id="faq-content-1" class="px-6 pb-6 pt-1 text-sm sm:text-[15px] text-slate-muted leading-relaxed border-t border-border-subtle/50">
+            CleverPe is an Indian digital affordability and fintech platform operated by CleverPe Technologies Private Limited. We bridge consumers and businesses with flexible credit solutions including Buy Now Pay Later (BNPL), No Cost EMI, EV mobility loans, healthcare financing, and merchant checkout integrations. In strict adherence to RBI guidelines, all credit lines and loan facilities are facilitated through our RBI-registered NBFC lending partners.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="bg-white rounded-2xl border border-border-subtle overflow-hidden">
+          <button onclick="toggleFaq(2)" class="w-full text-left px-6 py-5 flex items-center justify-between gap-4 font-bold text-slate-deep hover:text-teal-brand transition-colors">
+            <span class="text-base sm:text-lg">What financing options are available?</span>
+            <div id="faq-icon-2" class="w-8 h-8 rounded-full bg-bg-secondary text-slate-muted flex items-center justify-center shrink-0 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div id="faq-content-2" class="hidden px-6 pb-6 pt-1 text-sm sm:text-[15px] text-slate-muted leading-relaxed border-t border-border-subtle/50">
+            CleverPe provides five primary financing pillars: (1) Buy Now Pay Later for daily retail & gadgets, (2) No Cost EMI for electronics and appliances, (3) Electric Vehicle (EV) two-wheeler loans up to ₹2,00,000, (4) Healthcare and medical procedure financing at partner clinics, and (5) Insurance premium split-financing to convert annual lump sums into comfortable monthly instalments.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="bg-white rounded-2xl border border-border-subtle overflow-hidden">
+          <button onclick="toggleFaq(3)" class="w-full text-left px-6 py-5 flex items-center justify-between gap-4 font-bold text-slate-deep hover:text-teal-brand transition-colors">
+            <span class="text-base sm:text-lg">How does No Cost EMI work?</span>
+            <div id="faq-icon-3" class="w-8 h-8 rounded-full bg-bg-secondary text-slate-muted flex items-center justify-center shrink-0 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div id="faq-content-3" class="hidden px-6 pb-6 pt-1 text-sm sm:text-[15px] text-slate-muted leading-relaxed border-t border-border-subtle/50">
+            With No Cost EMI, you only repay the exact cash price of the product or service divided equally over your chosen tenure (e.g., 3, 6, 9, or 12 months). Any applicable interest or merchant discount is subsidized between our partner merchant and CleverPe, meaning you pay ₹0 additional interest, zero processing charges, and zero hidden penalties when paid on time.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="bg-white rounded-2xl border border-border-subtle overflow-hidden">
+          <button onclick="toggleFaq(4)" class="w-full text-left px-6 py-5 flex items-center justify-between gap-4 font-bold text-slate-deep hover:text-teal-brand transition-colors">
+            <span class="text-base sm:text-lg">Who can apply?</span>
+            <div id="faq-icon-4" class="w-8 h-8 rounded-full bg-bg-secondary text-slate-muted flex items-center justify-center shrink-0 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div id="faq-content-4" class="hidden px-6 pb-6 pt-1 text-sm sm:text-[15px] text-slate-muted leading-relaxed border-t border-border-subtle/50">
+            Any Indian citizen aged 21 years or older with a valid Aadhaar, PAN card, active bank account, and regular source of income (salaried or self-employed) is eligible to apply. Our digital KYC check takes less than two minutes using your mobile number, providing an instant approval decision without requiring physical paperwork.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="bg-white rounded-2xl border border-border-subtle overflow-hidden">
+          <button onclick="toggleFaq(5)" class="w-full text-left px-6 py-5 flex items-center justify-between gap-4 font-bold text-slate-deep hover:text-teal-brand transition-colors">
+            <span class="text-base sm:text-lg">How can merchants partner with CleverPe?</span>
+            <div id="faq-icon-5" class="w-8 h-8 rounded-full bg-bg-secondary text-slate-muted flex items-center justify-center shrink-0 transition-transform">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div id="faq-content-5" class="hidden px-6 pb-6 pt-1 text-sm sm:text-[15px] text-slate-muted leading-relaxed border-t border-border-subtle/50">
+            Merchants can integrate CleverPe via plug-and-play QR codes for physical retail stores, soundboxes, or our lightweight REST APIs & SDKs for e-commerce checkouts. Once partnered, merchants receive next-day upfront settlements directly into their bank accounts while CleverPe assumes all credit risk and instalment collection responsibilities.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-12 text-center text-sm text-slate-muted">
+        Have a specific financing inquiry? Reach our Bangalore support desk at 
+        <a href="mailto:support@cleverpe.com" class="font-semibold text-teal-brand hover:underline">
+          support@cleverpe.com
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+      SECTION 11: FOOTER
+      CleverPe branding, regulatory info, links, privacy, terms, socials
+     ========================================================================= -->
+  <footer class="bg-white border-t border-border-subtle pt-16 pb-12 text-slate-muted">
+    <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-16 border-b border-border-subtle">
+        
+        <!-- Brand & RBI Compliance -->
+        <div class="lg:col-span-4 flex flex-col items-start pr-0 lg:pr-6">
+          <a href="#" class="mb-5 inline-block">
+            <div class="flex items-center gap-2.5 font-bold tracking-tight select-none">
+              <div class="relative w-9 h-9 rounded-xl bg-teal-brand flex items-center justify-center shadow-sm">
+                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 8h-5a4 4 0 0 0 0 8h5" />
+                  <circle cx="10" cy="12" r="1.75" fill="#A8C8B5" stroke="none" />
+                  <path d="M14 12h4" />
+                </svg>
+                <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-sage-brand ring-2 ring-white"></span>
+              </div>
+              <div class="flex items-baseline">
+                <span class="text-[22px] font-extrabold tracking-tight text-slate-deep">Clever</span>
+                <span class="text-[22px] font-extrabold tracking-tight text-teal-brand">Pe</span>
+              </div>
+            </div>
+          </a>
+          <p class="text-sm leading-relaxed text-slate-muted mb-6">
+            CleverPe is an Indian fintech platform dedicated to making life affordable through smart, digital-first financing for healthcare, electric mobility, insurance, and retail purchases.
+          </p>
+          
+          <div class="bg-bg-secondary rounded-xl p-3.5 border border-border-subtle text-xs leading-relaxed text-slate-deep w-full">
+            <div class="font-bold flex items-center gap-1.5 text-teal-brand mb-1">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"/></svg>
+              <span>RBI Compliance Transparency</span>
+            </div>
+            <span>
+              CleverPe acts as a digital lending tech interface. Credit facilities and loans are underwritten and sanctioned by RBI-registered NBFC partners: <em>Bhanix Finance & Investment Ltd.</em> and <em>Respo Financial Capital Pvt. Ltd.</em>
+            </span>
+          </div>
+        </div>
+
+        <!-- Financing Solutions -->
+        <div class="lg:col-span-3">
+          <h4 class="text-sm font-bold text-slate-deep uppercase tracking-wider mb-4">Financing Solutions</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#solutions" class="hover:text-teal-brand transition-colors">Buy Now Pay Later (BNPL)</a></li>
+            <li><a href="#solutions" class="hover:text-teal-brand transition-colors">No Cost EMI Plans</a></li>
+            <li><a href="#ev" class="hover:text-teal-brand transition-colors">Electric Vehicle Financing</a></li>
+            <li><a href="#healthcare" class="hover:text-teal-brand transition-colors">Healthcare & Medical Credit</a></li>
+            <li><a href="#solutions" class="hover:text-teal-brand transition-colors">Insurance Premium Financing</a></li>
+            <li><a href="#calculator" class="hover:text-teal-brand transition-colors">Interactive EMI Calculator</a></li>
+          </ul>
+        </div>
+
+        <!-- For Business -->
+        <div class="lg:col-span-2">
+          <h4 class="text-sm font-bold text-slate-deep uppercase tracking-wider mb-4">For Business</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><button onclick="openModal('merchant-modal')" class="hover:text-teal-brand transition-colors text-left">Partner With Us</button></li>
+            <li><button onclick="openModal('merchant-modal')" class="hover:text-teal-brand transition-colors text-left">Merchant POS Solutions</button></li>
+            <li><a href="#merchants" class="hover:text-teal-brand transition-colors">E-Commerce Checkout API</a></li>
+            <li><a href="#merchants" class="hover:text-teal-brand transition-colors">Settlement Dashboard</a></li>
+            <li><a href="#faq" class="hover:text-teal-brand transition-colors">Merchant Help Desk</a></li>
+          </ul>
+        </div>
+
+        <!-- Company & Contact -->
+        <div class="lg:col-span-3">
+          <h4 class="text-sm font-bold text-slate-deep uppercase tracking-wider mb-4">CleverPe Technologies</h4>
+          <ul class="space-y-3 text-sm">
+            <li class="flex items-start gap-2.5">
+              <svg class="w-4 h-4 text-teal-brand shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Bengaluru, Karnataka, India</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-teal-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:contact@cleverpe.com" class="hover:text-teal-brand">contact@cleverpe.com</a>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 text-teal-brand shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>Support: Mon - Sat (9 AM - 7 PM)</span>
+            </li>
+          </ul>
+
+          <div class="flex items-center gap-3 mt-6">
+            <a href="#" class="w-8 h-8 rounded-full bg-bg-secondary flex items-center justify-center text-slate-deep hover:bg-teal-brand hover:text-white transition-colors" aria-label="LinkedIn">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-bg-secondary flex items-center justify-center text-slate-deep hover:bg-teal-brand hover:text-white transition-colors" aria-label="Twitter">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-muted gap-4">
+        <div>
+          © 2026 CleverPe Technologies Private Limited. All rights reserved.
+        </div>
+        <div class="flex flex-wrap items-center gap-6">
+          <a href="#" class="hover:text-teal-brand transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-teal-brand transition-colors">Terms of Service</a>
+          <a href="#" class="hover:text-teal-brand transition-colors">Responsible Lending Policy</a>
+          <a href="#" class="hover:text-teal-brand transition-colors">Grievance Redressal</a>
+          <a href="#" class="hover:text-teal-brand transition-colors">RBI Fair Practices Code</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+      MODAL 1: GET STARTED / ELIGIBILITY CHECKER
+     ========================================================================= -->
+  <div id="apply-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-deep/50 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-modal border border-border-subtle relative">
+      <button onclick="closeModal('apply-modal')" class="absolute top-5 right-5 text-slate-muted hover:text-slate-deep p-1 rounded-lg">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div id="apply-form-content">
+        <div class="w-10 h-10 rounded-xl bg-teal-light text-teal-brand flex items-center justify-center mb-4">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-slate-deep mb-1">Get Started with CleverPe</h3>
+        <p class="text-xs text-slate-muted mb-6">
+          Check your digital financing eligibility in 60 seconds without affecting your credit score.
+        </p>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-deep uppercase mb-1.5">Mobile Number</label>
+            <div class="flex rounded-xl border border-border-subtle overflow-hidden focus-within:border-teal-brand">
+              <span class="bg-bg-secondary px-3.5 py-2.5 text-sm font-semibold text-slate-deep border-r border-border-subtle">
+                +91
+              </span>
+              <input 
+                id="apply-phone"
+                type="tel"
+                maxlength="10"
+                placeholder="98765 43210"
+                class="w-full px-3.5 py-2.5 text-sm outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-deep uppercase mb-1.5">Interested Solution</label>
+            <select class="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle text-sm text-slate-deep outline-none focus:border-teal-brand bg-white">
+              <option>Consumer Electronics & BNPL</option>
+              <option>No Cost EMI (Appliances & Laptops)</option>
+              <option>Electric Vehicle Financing</option>
+              <option>Healthcare & Medical Financing</option>
+              <option>Insurance Premium Financing</option>
+            </select>
+          </div>
+
+          <div class="flex items-start gap-2 pt-2 text-[11px] text-slate-muted">
+            <svg class="w-3.5 h-3.5 text-teal-brand shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Your data is protected under 256-bit encryption and shared solely with RBI-registered NBFC lenders.</span>
+          </div>
+
+          <button 
+            onclick="submitApplication()"
+            class="w-full mt-4 bg-teal-brand hover:bg-teal-dark text-white font-semibold py-3.5 rounded-xl shadow-sm text-sm transition-all"
+          >
+            Check Digital Eligibility
+          </button>
+        </div>
+      </div>
+
+      <div id="apply-success-content" class="hidden text-center py-6">
+        <div class="w-14 h-14 rounded-full bg-teal-light text-teal-brand flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-slate-deep mb-2">Eligibility Request Received</h3>
+        <p class="text-sm text-slate-muted leading-relaxed mb-6">
+          We sent a verification SMS. You have pre-approved credit potential up to <strong>₹1,50,000</strong> with CleverPe.
+        </p>
+        <button onclick="closeModal('apply-modal')" class="bg-slate-deep text-white font-semibold px-6 py-2.5 rounded-full text-sm">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+      MODAL 2: MERCHANT INQUIRY
+     ========================================================================= -->
+  <div id="merchant-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-deep/50 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-modal border border-border-subtle relative">
+      <button onclick="closeModal('merchant-modal')" class="absolute top-5 right-5 text-slate-muted hover:text-slate-deep p-1 rounded-lg">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div id="merchant-form-content">
+        <div class="w-10 h-10 rounded-xl bg-teal-light text-teal-brand flex items-center justify-center mb-4">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7v14M21 7v14M6 11h4M6 15h4M14 11h4M14 15h4M9 3l3-2 3 2v4H9V3z"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-slate-deep mb-1">Partner With CleverPe</h3>
+        <p class="text-xs text-slate-muted mb-6">
+          Enable instant customer EMIs at your retail stores or e-commerce checkout.
+        </p>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-deep uppercase mb-1.5">Business / Store Name</label>
+            <input 
+              id="merchant-store"
+              type="text"
+              placeholder="e.g. Urban Electronics, Apollo Dental"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle text-sm outline-none focus:border-teal-brand"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-deep uppercase mb-1.5">Contact Person Name</label>
+            <input 
+              id="merchant-name"
+              type="text"
+              placeholder="Your full name"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle text-sm outline-none focus:border-teal-brand"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-deep uppercase mb-1.5">Store Type</label>
+            <select class="w-full px-3.5 py-2.5 rounded-xl border border-border-subtle text-sm text-slate-deep outline-none focus:border-teal-brand bg-white">
+              <option>Physical Retail Store / Multi-Outlet Chain</option>
+              <option>Hospital, Clinic, or Diagnostic Center</option>
+              <option>Electric Vehicle (EV) Dealership</option>
+              <option>Online E-Commerce Website / App</option>
+            </select>
+          </div>
+
+          <button 
+            onclick="submitMerchant()"
+            class="w-full mt-4 bg-teal-brand hover:bg-teal-dark text-white font-semibold py-3.5 rounded-xl shadow-sm text-sm transition-all"
+          >
+            Request Merchant Integration Kit
+          </button>
+        </div>
+      </div>
+
+      <div id="merchant-success-content" class="hidden text-center py-6">
+        <div class="w-14 h-14 rounded-full bg-teal-light text-teal-brand flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-slate-deep mb-2">Merchant Request Logged</h3>
+        <p class="text-sm text-slate-muted leading-relaxed mb-6">
+          Our Bangalore merchant relationship team will reach out with your POS soundbox and API credentials within 1 business day.
+        </p>
+        <button onclick="closeModal('merchant-modal')" class="bg-slate-deep text-white font-semibold px-6 py-2.5 rounded-full text-sm">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    let currentTenure = 6;
+    let isNoCostPlan = true;
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+      if (modalId === 'apply-modal') {
+        document.getElementById('apply-form-content').classList.remove('hidden');
+        document.getElementById('apply-success-content').classList.add('hidden');
+      }
+      if (modalId === 'merchant-modal') {
+        document.getElementById('merchant-form-content').classList.remove('hidden');
+        document.getElementById('merchant-success-content').classList.add('hidden');
+      }
+    }
+
+    function submitApplication() {
+      const phone = document.getElementById('apply-phone').value;
+      if (phone.length < 10) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return;
+      }
+      document.getElementById('apply-form-content').classList.add('hidden');
+      document.getElementById('apply-success-content').classList.remove('hidden');
+    }
+
+    function submitMerchant() {
+      const store = document.getElementById('merchant-store').value;
+      const name = document.getElementById('merchant-name').value;
+      if (!store || !name) {
+        alert('Please provide your business and contact person name.');
+        return;
+      }
+      document.getElementById('merchant-form-content').classList.add('hidden');
+      document.getElementById('merchant-success-content').classList.remove('hidden');
+    }
+
+    function setMode(noCost) {
+      isNoCostPlan = noCost;
+      const btnNoCost = document.getElementById('btn-nocost');
+      const btnStandard = document.getElementById('btn-standard');
+      const badge = document.getElementById('badge-nocost');
+      const rateLabel = document.getElementById('interest-rate-val');
+
+      if (noCost) {
+        btnNoCost.className = "px-5 py-2 text-xs sm:text-sm font-bold rounded-full bg-teal-brand text-white shadow-sm transition-all";
+        btnStandard.className = "px-5 py-2 text-xs sm:text-sm font-bold rounded-full text-slate-muted hover:text-slate-deep transition-all";
+        badge.classList.remove('hidden');
+        rateLabel.textContent = "0% (No Cost)";
+      } else {
+        btnStandard.className = "px-5 py-2 text-xs sm:text-sm font-bold rounded-full bg-slate-deep text-white shadow-sm transition-all";
+        btnNoCost.className = "px-5 py-2 text-xs sm:text-sm font-bold rounded-full text-slate-muted hover:text-slate-deep transition-all";
+        badge.classList.add('hidden');
+        rateLabel.textContent = "14.5% p.a.";
+      }
+      updateCalc();
+    }
+
+    function setTenure(months) {
+      currentTenure = months;
+      document.querySelectorAll('.tenure-btn').forEach(btn => {
+        if (parseInt(btn.getAttribute('data-tenure')) === months) {
+          btn.className = "tenure-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all border bg-teal-brand text-white border-teal-brand shadow-sm";
+        } else {
+          btn.className = "tenure-btn py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all border bg-bg-primary text-slate-deep border-border-subtle";
+        }
+      });
+      updateCalc();
+    }
+
+    function updateCalc() {
+      const amount = parseInt(document.getElementById('amount-slider').value);
+      const dpSlider = document.getElementById('downpayment-slider');
+      dpSlider.max = Math.floor(amount * 0.4);
+      let downPayment = parseInt(dpSlider.value);
+      if (downPayment > dpSlider.max) {
+        downPayment = dpSlider.max;
+        dpSlider.value = downPayment;
+      }
+
+      document.getElementById('amount-val').textContent = '₹' + amount.toLocaleString('en-IN');
+      document.getElementById('downpayment-val').textContent = '₹' + downPayment.toLocaleString('en-IN');
+      document.getElementById('summary-downpayment').textContent = '₹' + downPayment.toLocaleString('en-IN');
+
+      const principal = Math.max(0, amount - downPayment);
+      document.getElementById('principal-val').textContent = '₹' + principal.toLocaleString('en-IN');
+
+      let monthlyEmi = 0;
+      let totalPayable = 0;
+
+      if (isNoCostPlan) {
+        monthlyEmi = Math.round(principal / currentTenure);
+        totalPayable = principal + downPayment;
+      } else {
+        const annualRate = 0.145;
+        const monthlyRate = annualRate / 12;
+        const factor = Math.pow(1 + monthlyRate, currentTenure);
+        monthlyEmi = Math.round((principal * monthlyRate * factor) / (factor - 1));
+        totalPayable = (monthlyEmi * currentTenure) + downPayment;
+      }
+
+      document.getElementById('emi-result').textContent = '₹' + monthlyEmi.toLocaleString('en-IN');
+      document.getElementById('total-payable-val').textContent = '₹' + totalPayable.toLocaleString('en-IN');
+    }
+
+    function toggleFaq(num) {
+      for (let i = 1; i <= 5; i++) {
+        const content = document.getElementById('faq-content-' + i);
+        const icon = document.getElementById('faq-icon-' + i);
+        if (i === num) {
+          if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            icon.classList.add('rotate-180', 'bg-teal-light', 'text-teal-brand');
+            icon.classList.remove('bg-bg-secondary', 'text-slate-muted');
+          } else {
+            content.classList.add('hidden');
+            icon.classList.remove('rotate-180', 'bg-teal-light', 'text-teal-brand');
+            icon.classList.add('bg-bg-secondary', 'text-slate-muted');
+          }
+        } else {
+          content.classList.add('hidden');
+          icon.classList.remove('rotate-180', 'bg-teal-light', 'text-teal-brand');
+          icon.classList.add('bg-bg-secondary', 'text-slate-muted');
+        }
+      }
+    }
+
+    // Initialize
+    updateCalc();
+  </script>
+</body>
+</html>
